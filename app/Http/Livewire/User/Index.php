@@ -15,7 +15,7 @@ class Index extends Component
     public $sortAsc = true; // default sort direction
     public $search = '';
 
-    protected $listeners = ['delete'];
+    protected $listeners = ['delete', 'triggerRefresh' => '$refresh'];
 
     public function sortBy($field)
     {
@@ -32,7 +32,7 @@ class Index extends Component
     {
         $user = User::find($id);
         if($user->delete()){
-            $this->dispatchBrowserEvent('user-deleted', ['user-name'=> $user->name]);
+            $this->dispatchBrowserEvent('user-deleted', ['user_name'=> $user->name]);
         }
     }
     
