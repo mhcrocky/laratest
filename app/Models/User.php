@@ -8,6 +8,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Spatie\Permission\Traits\HasRoles;
 use App\Traits\Uuids;
+use Auth;
 
 class User extends Authenticatable
 {
@@ -45,11 +46,15 @@ class User extends Authenticatable
 
     public static function search($query)
     {
-        return empty($query) ? static::query()
+        $data = empty($query) ? static::query()
             : static::where(function($q) use ($query) {
                     $q
                         ->where('name', 'LIKE', '%'. $query . '%')
                         ->orWhere('email', 'LIKE', '%' . $query . '%');
-                });
+        });
+        return 
+            $data
+                ->where('id','!=',Auth::user()->id)
+                ->where('email','!=','admin@mail.com');
     }
 }

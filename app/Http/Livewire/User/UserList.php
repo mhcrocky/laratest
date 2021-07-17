@@ -5,6 +5,7 @@ namespace App\Http\Livewire\User;
 use Livewire\Component;
 use Livewire\WithPagination;
 use App\Models\User;
+use Auth;
 
 class UserList extends Component
 {

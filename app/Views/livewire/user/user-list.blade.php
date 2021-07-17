@@ -42,7 +42,7 @@
                         <td>{{ $user->email }}</td>
                         <td>{{ $user->created_at->format('m-d-Y') }}</td>
                         <td>
-                            <button class="btn btn-sm btn-danger" wire:click="$emit('deleteTriggered', {{ $user->id }}, '{{ $user->name }}')">
+                            <button class="btn btn-sm btn-danger" wire:click="$emit('deleteTriggered', '{{ $user->id }}', '{{ $user->name }}')">
                                 Delete
                             </button>
                         </td>
