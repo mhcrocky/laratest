@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="container">
-        <livewire:user.user-list />
+        <livewire:user.index />
     </div>
 @endsection
 @section('js')

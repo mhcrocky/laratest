@@ -7,7 +7,7 @@ use Livewire\WithPagination;
 use App\Models\User;
 use Auth;
 
-class UserList extends Component
+class Index extends Component
 {
     use WithPagination;
     
@@ -38,7 +38,7 @@ class UserList extends Component
     
     public function render()
     {
-        return view('livewire.user.user-list', [
+        return view('livewire.user.index', [
             'users' => User::search($this->search)
                 ->orderBy($this->sortField, $this->sortAsc ? 'asc' : 'desc')
                 ->simplePaginate(10),
