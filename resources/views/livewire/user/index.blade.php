@@ -51,9 +51,7 @@
                             </button>
                         </td>
                         <td>
-                            <button class="btn btn-sm btn-dark">
-                            Edit
-                            </button>
+                            <button class="btn btn-sm btn-dark" wire:click="$emitTo('user.form', 'triggerEdit', {{ $user }})">Edit</button>
                         </td>
                     </tr>
                 @endforeach

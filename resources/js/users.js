@@ -5,8 +5,9 @@ Livewire.on("deleteTriggered", (id, name) => {
         Livewire.emit("delete", id);
     }
 });
-window.addEventListener('user-deleted', (event) => {
-    alert(`${event.detail.user_name} was deleted!`);
+
+Livewire.on('user-deleted', (data) => {
+    alert(`${data.user_name} was deleted!`);
 })
 
 Livewire.on("triggerCreate", () => {
@@ -14,7 +15,11 @@ Livewire.on("triggerCreate", () => {
 });
 
 
-window.addEventListener("user-saved", (event) => {
+Livewire.on("user-saved", (data) => {
     $("#user-modal").modal("hide");
-    alert(`User ${event.detail.user_name} was ${event.detail.action}!`);
+    alert(`User ${data.user_name} was ${data.action}!`);
+});
+
+Livewire.on("dataFetched", (user) => {
+  $("#user-modal").modal("show");
 });

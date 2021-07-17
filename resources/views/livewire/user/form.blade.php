@@ -12,12 +12,6 @@
             @error('email') <span class="text-danger">{{ $message }}</span> @enderror
         </div>
 
-        <div class="form-group">
-            <label for="password">Password</label>
-            <input type="password" class="form-control" id="password" name="password" wire:model="password">
-            @error('password') <span class="text-danger">{{ $message }}</span> @enderror
-        </div>
-
         <button class="btn btn-primary" type="submit">Save</button>
     </form>
 </div>

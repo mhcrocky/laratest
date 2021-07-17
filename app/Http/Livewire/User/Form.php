@@ -8,8 +8,10 @@ class Form extends Component
 {
     public $name;
     public $email;
-    public $password;
-    
+    public $user_id = null;
+
+    protected $listeners = ['triggerEdit'];
+
     public function render()
     {
         return view('livewire.user.form');
@@ -17,26 +19,47 @@ class Form extends Component
 
     public function save()
     {
-        $validated = $this->validate([
-            'name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:users',
-            'password' => 'required|string|min:8',
-        ]);
+        if ($this->user_id) {
+            $user = $this->validate([
+                'name' => 'required|string|max:255',
+                'email' => 'required|string|email|max:255',
+            ]);
 
-        User::create(array_merge($validated, [
-            'password' => bcrypt($this->password)
-        ]));
+            User::find($this->user_id)
+                ->update($user);
+    
+            $this->emit('user-saved', ['action' => 'updated', 'user_name' => $this->name]);
+        } else {
+            
+            $user = $this->validate([
+                'name' => 'required|string|max:255',
+                'email' => 'required|string|email|max:255|unique:users',
+            ]);
+
+            User::create(array_merge($user, [
+                'password' => bcrypt($this->email)
+            ]));
+    
+            $this->emit('user-saved', ['action' => 'created', 'user_name' => $this->name]);
+        }
         
         //TODO:asign role and permission
 
         $this->resetForm();
-        $this->dispatchBrowserEvent('user-saved', ['action' => 'created', 'user_name' => $validated['name']]);
-        $this->emitTo('live-table', 'triggerRefresh');
+        $this->emitTo('user.index', 'triggerRefresh');
+    }
+
+    public function triggerEdit($user)
+    {
+        $this->user_id = $user['id'];
+        $this->name = $user['name'];
+        $this->email = $user['email'];
+        
+        $this->emit('dataFetched', $user);
     }
 
     public function resetForm(){
         $this->name = null;
         $this->email = null;
-        $this->password = null;
     }
 }

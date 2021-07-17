@@ -32,7 +32,7 @@ class Index extends Component
     {
         $user = User::find($id);
         if($user->delete()){
-            $this->dispatchBrowserEvent('user-deleted', ['user_name'=> $user->name]);
+            $this->emit('user-deleted', ['user_name'=> $user->name]);
         }
     }
     
