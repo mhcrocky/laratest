@@ -1,9 +1,13 @@
 <div>
     <div class="row mb-4">
         <div class="col-md-12">
-          <div class="float-right mt-5">
-              <input wire:model="search" class="form-control" type="text" placeholder="Search Users...">
-          </div>
+            <div class="float-left mt-5">
+                <button class="btn btn-success" wire:click="$emit('triggerCreate')">Create New User</button>
+            </div>
+
+            <div class="float-right mt-5">
+                <input wire:model="search" class="form-control" type="text" placeholder="Search Users...">
+            </div>
         </div>
     </div>
 

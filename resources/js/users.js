@@ -8,3 +8,7 @@ Livewire.on("deleteTriggered", (id, name) => {
 window.addEventListener('user-deleted', (event) => {
     alert(`${event.user_name} was deleted!`);
 })
+
+Livewire.on("triggerCreate", () => {
+    $("#user-modal").modal("show");
+});
