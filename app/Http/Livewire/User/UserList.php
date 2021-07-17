@@ -14,6 +14,8 @@ class UserList extends Component
     public $sortAsc = true; // default sort direction
     public $search = '';
 
+    protected $listeners = ['delete'];
+
     public function sortBy($field)
     {
         if ($this->sortField === $field) {
@@ -25,6 +27,14 @@ class UserList extends Component
         $this->sortField = $field;
     }
 
+    public function delete($id)
+    {
+        $user = User::find($id);
+        if($user->delete()){
+            $this->dispatchBrowserEvent('user-deleted', ['user-name'=> $user->name]);
+        }
+    }
+    
     public function render()
     {
         return view('livewire.user.user-list', [
