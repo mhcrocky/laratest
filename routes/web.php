@@ -10,10 +10,15 @@ use App\Http\Controllers\UserController;
 Auth::routes();
 
 Route::get('/', [GuestController::class, 'index'])->name('home');
-Route::get('/dashboard', [HomeController::class, 'index'])->name('dashboard');
 
 
 Route::group(['middleware' => ['auth']], function() {
-    Route::resource('role', RoleController::class);
-    Route::resource('user', UserController::class);
+    Route::get('/', [HomeController::class, 'index'])->name('index');
+
+    
+    Route::get('/role', [RoleController::class,'index'])->name('role.index');
+    
+    Route::get('/user',         [UserController::class,'index'])->name('user.index');
+    Route::get('/user/profile', [UserController::class,'profile'])->name('user.profile');
+    Route::get('/user/{id}',    [UserController::class,'detail'])->name('user.index');
 });
